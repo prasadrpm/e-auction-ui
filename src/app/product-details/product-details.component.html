@@ -1,0 +1,90 @@
+<mat-card>
+<form [formGroup]="productForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Product</mat-label>
+    <mat-select [formControlName]="'product'">
+      <mat-option *ngFor="let product of products" [value]="product.productId" 
+        (onSelectionChange)="productOnchange($event)">
+        {{product.category}} - {{product.detailedDesc}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  
+<mat-card-title> <p>Product Details</p> </mat-card-title>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Product Name</mat-label>
+      <input matInput formControlName="productName">
+    </mat-form-field>
+     
+    <mat-form-field appearance="outline">
+      <mat-label>Short Description</mat-label>
+      <input matInput formControlName="shortDesc">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Detailed Description</mat-label>
+      <input matInput formControlName="detailedDesc">
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Category</mat-label>
+      <input matInput formControlName="category">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Starting price</mat-label>
+      <input matInput formControlName="startingPrice">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bid End Date</mat-label>
+      <input matInput formControlName="bidEndDate">
+    </mat-form-field>
+     
+  </div>
+</form>
+</mat-card>
+<mat-card>
+  <mat-card-title>Bids</mat-card-title>
+
+  <table mat-table [dataSource]="bidDataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="bidAmount">
+      <th mat-header-cell *matHeaderCellDef>Bid Amount</th>
+      <td mat-cell *matCellDef="let e"> {{e.bidAmount}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let e"> {{e.firstName}}</td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>email</th>
+      <td mat-cell *matCellDef="let e"> {{e.email}}</td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="mobile">
+      <th mat-header-cell *matHeaderCellDef>Mobile</th>
+      <td mat-cell *matCellDef="let e"> {{e.phoneNo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="noMatch">
+      <td mat-footer-cell *matFooterCellDef [colSpan]="bidColumnDef.length">
+        No Bids found
+      </td>
+    </ng-container>
+    
+    <mat-footer-row *matFooterRowDef="['noMatch']" 
+        [style.display]= "(bidDataSource.data.length) ? 'none' : 'table-row'" >
+    </mat-footer-row>
+    
+    <tr mat-header-row *matHeaderRowDef="bidColumnDef"></tr>
+    <tr mat-row *matRowDef="let row; columns: bidColumnDef;"></tr>
+
+  </table>
+</mat-card>
