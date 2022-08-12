@@ -4,14 +4,13 @@ steps:
   args: ['clone','https://github.com/prasadrpm/e-auction-ui.git']
   
 #Gradle build  
-- name: gcr.io/cloud-builders/npm
-  args: ['install']
-  
-- name: gcr.io/cloud-builders/npm
-  args: ['cache', 'clean', '--force']
+- name: node:14.15
+  entrypoint: npm
+  args: [ 'install' ]
 
-- name: gcr.io/cloud-builders/npm
-  args: ['run', 'build', '--prod' ]
+- name: node:14.15
+  entrypoint: npm
+  args: [ 'run', 'build', '--prod' ]
    
 #Docker Image   
 - name: 'gcr.io/cloud-builders/docker'
