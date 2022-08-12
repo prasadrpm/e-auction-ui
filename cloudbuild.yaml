@@ -5,10 +5,13 @@ steps:
   
 #Gradle build  
 - name: gcr.io/cloud-builders/npm
-  args: [ install ]
+  args: ['install']
+  
+- name: gcr.io/cloud-builders/npm
+  args: ['cache', 'clean', '--force']
 
 - name: gcr.io/cloud-builders/npm
-  args: [ run, build, --prod ]
+  args: ['run', 'build', '--prod' ]
    
 #Docker Image   
 - name: 'gcr.io/cloud-builders/docker'
