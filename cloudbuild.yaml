@@ -1,0 +1,19 @@
+steps:
+#First Clone from Google Cloud Source Repository  
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone','https://github.com/prasadrpm/e-auction-ui.git']
+  
+#Gradle build  
+- name: gcr.io/cloud-builders/npm
+  args: [ install ]
+
+- name: gcr.io/cloud-builders/npm
+  args: [ run, build, --prod ]
+   
+#Docker Image   
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/credible-bay-346209/e-auction-ui','.']
+
+#Push the image  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','gcr.io/credible-bay-346209/e-auction-ui']
